@@ -19,7 +19,7 @@ if user in registered_users.keys() and registered_users.get(user) == password:
           user,"\nWe have 3 texts to be analyzed.")
 else:
     print("unregistered user, terminating the program..")
-    exit()
+    sys.exit()
 TEXTS = ['''
 "Situated about 10 miles west of Kemmerer,
 Fossil Butte is a ruggedly impressive
@@ -51,7 +51,7 @@ print(oddelovac)
 text = input("Enter a number btw. 1 and 3 to select: ")
 if text.isdigit() == False or int(text) not in (1,2,3):
     print("Wrong number of text, terminating the program")
-    exit()
+    sys.exit()
 print(oddelovac)
 words = TEXTS[int(text)-1].split()
 word_count = len(words)
@@ -77,47 +77,20 @@ print("There are", lowercase_count, "lowercase words.")
 print("There are", number_count, "numeric strings.")
 print("The sum of all the numbers", number_sum)
 print(oddelovac)
-print("LEN|    OCCURENCES    |NR.")
-print(oddelovac)
-len1 = len2 = len3 = len4 = len5 = len6 = len7 = len8 = len9 = len10 = len11 = 0 #sice 80 znaků, ale přijde mi to nejpraktičtější
+word_lengths = {}
 for word in words:
     clean_word = (
     word.replace('"', '')
     .replace(',', '')
     .replace('.', '')
     .replace("'", '')
-)
-    length = len(clean_word)
-    if length == 1:
-        len1 += 1
-    elif length == 2:
-        len2 += 1
-    elif length == 3:
-        len3 += 1
-    elif length == 4:
-        len4 += 1
-    elif length == 5:
-        len5 += 1
-    elif length == 6:
-        len6 += 1
-    elif length == 7:
-        len7 += 1
-    elif length == 8:
-        len8 += 1
-    elif length == 9:
-        len9 += 1
-    elif length == 10:
-        len10 += 1
-    elif length == 11:
-        len11 += 1
-print(f"{1:>3}|{('*' * len1):<18}|{len1}")
-print(f"{2:>3}|{('*' * len2):<18}|{len2}")
-print(f"{3:>3}|{('*' * len3):<18}|{len3}")
-print(f"{4:>3}|{('*' * len4):<18}|{len4}")
-print(f"{5:>3}|{('*' * len5):<18}|{len5}")
-print(f"{6:>3}|{('*' * len6):<18}|{len6}")
-print(f"{7:>3}|{('*' * len7):<18}|{len7}")
-print(f"{8:>3}|{('*' * len8):<18}|{len8}")
-print(f"{9:>3}|{('*' * len9):<18}|{len9}")
-print(f"{10:>3}|{('*' * len10):<18}|{len10}")
-print(f"{11:>3}|{('*' * len11):<18}|{len11}")
+    )
+    word_length = len(clean_word)
+    if word_length in word_lengths:
+        word_lengths[word_length] += 1
+    else:
+        word_lengths[word_length] = 1
+print("LEN| OCCURRENCES |NR.")
+print(oddelovac)
+for length, count in sorted(word_lengths.items()):
+    print(f"{length:>3}|{('*' * count):<18}|{count}")
